@@ -1,6 +1,9 @@
 import os
 from typing import List
 from pydantic import BaseModel
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Configs(BaseModel):
@@ -20,6 +23,22 @@ class Configs(BaseModel):
     DATE_FORMAT: str = "%Y-%m-%d"
 
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
+
+    # Supabase
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL")
+    SUPABASE_KEY: str = os.getenv("SUPABASE_KEY")
+    SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+
+    # Database
+    DATABASE_URL: str = os.getenv("DATABASE_URL")
+    DB_HOST: str = os.getenv("DB_HOST")
+    DB_PORT: int = int(os.getenv("DB_PORT", 5432))
+    DB_USER: str = os.getenv("DB_USER")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD")
+    DB_NAME: str = os.getenv("DB_NAME")
+
+    class Config:
+        env_file = ".env"
 
 
 configs = Configs()
