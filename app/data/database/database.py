@@ -4,10 +4,10 @@ from sqlalchemy.orm import sessionmaker
 from app.core.configs import configs
 
 # Moteur SQLAlchemy
-engine = create_engine(configs.DATABASE_URL, echo=True)
+Engine = create_engine(configs.DATABASE_URL, echo=True)
 
 # Session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=Engine)
 
 # Base pour les modèles
 Base = declarative_base()

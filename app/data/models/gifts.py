@@ -1,10 +1,9 @@
-from gotrue import BaseModel
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String
+from app.data.models.base import Base
 
 
-class Gift(BaseModel):
+class Gift(Base):
     __tablename__ = "gifts"
 
-    id: Column[int] = Column(Integer, primary_key=True, index=True)
     name: Column[str] = Column(String, nullable=False)
     description: Column[str] = Column(String, nullable=True)

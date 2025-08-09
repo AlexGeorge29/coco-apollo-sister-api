@@ -1,5 +1,3 @@
-from pydantic import BaseModel
+from sqlalchemy.ext.declarative import declarative_base
 
-
-class BaseResponse(BaseModel):
-    id: int
+Base = declarative_base()

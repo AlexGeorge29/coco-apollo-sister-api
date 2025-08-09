@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.data.database.supabase_client2 import supabase
+from app.data.database.supabase_client import supabase
 
 router = APIRouter(prefix="/gifts", tags=["gifts"])
 
