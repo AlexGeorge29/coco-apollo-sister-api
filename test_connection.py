@@ -5,7 +5,7 @@ from app.data.database.supabase_client import supabase
 async def test_supabase_connection():
     try:
         # Test simple : récupérer les tables
-        response = supabase.table("items").select("*").execute()
+        response = supabase.table("gifts").select("*").execute()
         print("✅ Connexion Supabase réussie!")
         print(f"Nombre d'item: {response}")
     except Exception as e:
