@@ -1,5 +1,5 @@
 import asyncio
-from app.data.database.supabase_client import supabase
+from app.data.database.supabase_client2 import supabase
 
 
 async def test_supabase_connection():
