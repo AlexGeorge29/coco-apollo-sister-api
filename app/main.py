@@ -1,29 +1,24 @@
 from fastapi import FastAPI
-from .models import Item, ItemResponse
+from fastapi.middleware.cors import CORSMiddleware
+
+from .core.configs import configs
+from .api.routes import routers
 
 app = FastAPI(
-    title="Mon API FastAPI",
-    description="Une API simple créée avec FastAPI",
-    version="1.0.0",
+    title=configs.PROJECT_NAME,
+    description=configs.DESCRIPTION,
+    debug=configs.DEBUG,
+    docs_url=configs.DOCS_URL,
+    version=configs.VERSION,
+    openapi_url=f"{configs.API}/openapi.json",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=configs.BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get("/")
-async def root():
-    return {"message": "Bienvenue dans mon API FastAPI!"}
-
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
-
-
-@app.post("/items", response_model=ItemResponse)
-async def create_item(item: Item):
-    return ItemResponse(
-        id=1,
-        name=item.name,
-        description=item.description,
-        price=item.price,
-        message="Item créé avec succès",
-    )
+app.include_router(routers)
