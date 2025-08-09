@@ -2,3 +2,7 @@ fastapi
 uvicorn
 pydantic
 dependency_injector
+supabase
+python-dotenv
+sqlalchemy
+psycopg2-binary
