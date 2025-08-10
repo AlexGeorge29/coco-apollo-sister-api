@@ -10,11 +10,10 @@ class GiftBase(BaseModel):
     url: str = ""
     description: str
     brand: str = ""
-    img_rul: str = ""
+    img_url: str = ""
     quantity: int = 0
     category_id: int = 0
     greatings_id: int = 0
-    user_id: int = 0
 
 
 class GiftModel(TimestampMixin, GiftBase):

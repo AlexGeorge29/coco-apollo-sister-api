@@ -7,7 +7,7 @@ class GiftUserBase(BaseModel):
     user_id: int
     favorite: bool = False
     reserved: bool = False
-    bouth: bool = False
+    bougth: bool = False
 
 
 class GiftUser(GiftUserBase):
