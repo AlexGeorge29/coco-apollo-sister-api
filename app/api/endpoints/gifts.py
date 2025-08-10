@@ -1,11 +1,12 @@
 from fastapi import APIRouter, HTTPException
-from app.data.database.supabase_client2 import supabase
+from app.models.schemas.gifts import GiftModel
+from app.database.supabase_client import supabase
 
 router = APIRouter(prefix="/gifts", tags=["gifts"])
 
 
-@router.get("/")
-async def get_gifts():  # type: ignore
+@router.get("/", response_model=list[GiftModel])
+async def get_gifts():
     try:
         response = supabase.table("gifts").select("*").execute()  # type: ignore
         return response.data
