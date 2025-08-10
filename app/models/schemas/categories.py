@@ -6,7 +6,7 @@ from app.models.schemas.base import TimestampMixin
 class CategoryBase(BaseModel):
 
     name: str = ""
-    couleur: str = ""
+    color: str = ""
     description: str = ""
 
 
