@@ -1,12 +1,11 @@
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from app.data.models.base import Base
+from app.data.models.base import TimestampMixin
 
 
-class Gift(Base):
-    __tablename__ = "gifts"
+class GiftBase(BaseModel):
 
-    id: Column[int] = Column(Integer, primary_key=True, index=True)
     name: Column[str] = Column(String, nullable=False)
     price: Column[int] = Column(Integer, nullable=False)
     url: Column[str] = Column(String, nullable=False)
@@ -21,3 +20,28 @@ class Gift(Base):
         Integer, ForeignKey("greatings.id"), nullable=True
     )
     user_id: Column[int] = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+
+class Gift(TimestampMixin, GiftBase):
+    __tablename__ = "gifts"
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "name": "Gift Name",
+                "price": 100,
+                "url": "https://example.com/gift",
+                "description": "A wonderful gift",
+                "brand": "Brand Name",
+                "img_rul": "https://example.com/image.jpg",
+                "quantity": 1,
+                "category_id": 1,
+                "greatings_id": 1,
+                "user_id": 1,
+                "created_at": "2023-10-01T12:00:00Z",
+                "updated_at": "2023-10-01T12:00:00Z",
+            }
+        },
+    )

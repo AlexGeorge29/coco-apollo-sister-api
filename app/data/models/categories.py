@@ -1,21 +1,25 @@
-from datetime import datetime, timezone
-from sqlalchemy import Column, DateTime, Integer, String
-
-from app.data.database.database import Base
+from pydantic import BaseModel, ConfigDict
+from sqlalchemy import Column, String
 
 
-class Category(Base):
-    __tablename__ = "categories"
+class CategoryBase(BaseModel):
 
-    id: Column[int] = Column(Integer, primary_key=True, index=True)
     name: Column[str] = Column(String, nullable=False)
     couleur: Column[str] = Column(String, nullable=False)
     description: Column[str] = Column(String, nullable=True)
-    created_at = Column(
-        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
-    )
-    updated_at = Column(
-        DateTime(timezone=True),
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
+
+
+class Category(CategoryBase):
+    __tablename__ = "categories"
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "name": "Category Name",
+                "couleur": "#FFFFFF",
+                "description": "A brief description of the category",
+            }
+        },
     )
