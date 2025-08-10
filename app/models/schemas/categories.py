@@ -1,17 +1,19 @@
 from pydantic import BaseModel, ConfigDict
-from sqlalchemy import Column, String
+
+from app.models.schemas.base import TimestampMixin
 
 
 class CategoryBase(BaseModel):
 
-    name: Column[str] = Column(String, nullable=False)
-    couleur: Column[str] = Column(String, nullable=False)
-    description: Column[str] = Column(String, nullable=True)
+    name: str = ""
+    couleur: str = ""
+    description: str = ""
 
 
-class Category(CategoryBase):
+class Category(TimestampMixin, CategoryBase):
     __tablename__ = "categories"
 
+    id: int
     model_config = ConfigDict(
         from_attributes=True,
         json_schema_extra={

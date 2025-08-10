@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.core.configs import configs
+from app.core.config.configs import configs
 
 # Moteur SQLAlchemy
 Engine = create_engine(configs.DATABASE_URL, echo=True)
@@ -10,7 +9,6 @@ Engine = create_engine(configs.DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=Engine)
 
 # Base pour les modèles
-Base = declarative_base()
 
 
 # Dependency pour obtenir la session DB

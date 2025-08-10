@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from app.data.models.base import TimestampMixin
+from app.models.schemas.base import TimestampMixin
 
 
 class HealthModelBase(BaseModel):
@@ -10,6 +10,7 @@ class HealthModelBase(BaseModel):
 class HealthModel(TimestampMixin, HealthModelBase):
     __tablename__ = "health"
 
+    id: int = 0
     model_config = ConfigDict(
         from_attributes=True,
         json_schema_extra={
