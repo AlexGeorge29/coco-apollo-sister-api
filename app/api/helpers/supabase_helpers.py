@@ -14,3 +14,9 @@ class SupabaseHelper(Generic[T]):
     def get_all(self) -> List[Dict[str, Any]]:
         response = self.client.table(self.table_name).select("*").execute()
         return response.data
+
+    def get_by_id(self, id_to_get: int) -> Optional[Dict[str, Any]]:
+        response = (
+            self.client.table(self.table_name).select("*").eq("id", id_to_get).execute()
+        )
+        return response.data[0] if response.data else None

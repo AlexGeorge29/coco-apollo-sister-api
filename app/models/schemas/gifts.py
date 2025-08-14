@@ -16,7 +16,7 @@ class GiftBase(BaseModel):
     greatings_id: int = 0
 
 
-class GiftModel(TimestampMixin, GiftBase):
+class GiftResponse(TimestampMixin, GiftBase):
     __tablename__ = "gifts"
 
     id: int
@@ -43,7 +43,7 @@ class GiftModel(TimestampMixin, GiftBase):
 
 
 class GiftsListResponse(BaseModel):
-    gifts: list[GiftModel] = []
+    gifts: list[GiftResponse] = []
 
     model_config = ConfigDict(
         json_schema_extra={
