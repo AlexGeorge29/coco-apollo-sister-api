@@ -1,9 +1,12 @@
 from fastapi import APIRouter, HTTPException
+
 from app.models.schemas.gifts import GiftsListResponse, GiftResponse
 
 from app.services.gift_service import GiftService
 
 router = APIRouter(prefix="/gifts", tags=["gifts"])
+
+
 gift_service = GiftService()
 
 

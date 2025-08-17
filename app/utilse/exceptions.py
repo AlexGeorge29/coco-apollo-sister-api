@@ -13,3 +13,11 @@ class GiftError(BaseAppException):
 
 class GiftsRetrievalError(GiftError):
     """Exception levée lors d'erreurs de récupération des cadeaux."""
+
+
+class GiftUserError(BaseAppException):
+    """Base exception for gift_user related errors."""
+
+
+class GiftsUserRetrievalError(GiftError):
+    """Exception levée lors d'erreurs de récupération des gift_users"""

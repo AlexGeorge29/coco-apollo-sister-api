@@ -1,0 +1,59 @@
+from fastapi import APIRouter, HTTPException
+from app.models.schemas.gift_user import GiftUsersListResponse, GiftUserResponse
+from app.services.gift_user_service import GiftUserService
+
+router = APIRouter(prefix="/gift_users", tags=["gift_user"])
+gift_user_service = GiftUserService()
+
+
+@router.get("/", response_model=GiftUsersListResponse)
+def get_gift_users():
+    """Retrieve all gift users."""
+    try:
+        return gift_user_service.get_gift_users()
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving gift users: {e}"
+        ) from e
+
+
+@router.get("/{gift_user_id}", response_model=GiftUserResponse)
+def get_gift_user(gift_user_id: int):
+    """Retrieve a specific gift user by ID."""
+    try:
+        gift_user = gift_user_service.get_gift_user(gift_user_id)
+        if not gift_user:
+            raise HTTPException(status_code=404, detail="Gift user not found")
+        return gift_user
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving gift user: {e}"
+        ) from e
+
+
+@router.get("/user/{user_id}", response_model=GiftUsersListResponse)
+def get_gift_users_by_user_id(user_id: int):
+    """Retrieve gift users by user ID."""
+    try:
+        return gift_user_service.get_gift_users_by_user_id(user_id)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving gift users by user ID: {e}"
+        ) from e
+
+
+# get
+# - All gift_user
+# - gift_user_by_id
+# - gift_user_by_user_id
+# - gift_user_by_gift_id
+
+
+# Post
+# - Create gift_ser
+
+# Delete
+# - delete_gift_user
+
+# Update
+# - Update gift_user

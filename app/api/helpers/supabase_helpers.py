@@ -20,3 +20,14 @@ class SupabaseHelper(Generic[T]):
             self.client.table(self.table_name).select("*").eq("id", id_to_get).execute()
         )
         return response.data[0] if response.data else None
+
+    def get_by_field(
+        self, field_name: str, field_value: Any
+    ) -> Optional[List[Dict[str, Any]]]:
+        response = (
+            self.client.table(self.table_name)
+            .select("*")
+            .eq(field_name, field_value)
+            .execute()
+        )
+        return response.data if response.data else []
