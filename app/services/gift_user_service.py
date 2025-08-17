@@ -1,4 +1,8 @@
-from app.models.schemas.gift_user import GiftUserResponse, GiftUsersListResponse
+from app.models.schemas.gift_user import (
+    GiftUserResponse,
+    GiftUsersListResponse,
+    GiftUserToCreate,
+)
 from app.repositories.gift_user_repository import GiftUserRepository
 from app.utilse.exceptions import GiftsUserRetrievalError
 
@@ -38,5 +42,28 @@ class GiftUserService:
             return GiftUsersListResponse(gift_users=gift_users)
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la récupération des utilisateurs de cadeaux pour l'ID utilisateur {user_id}: {str(e)}"
+                f"Erreur pour l'ID utilisateur {user_id}: {str(e)}"
+            ) from e
+
+    def get_gift_users_by_gift_id(self, gift_id: int) -> GiftUsersListResponse:
+        """Retrieve gift users by gift ID."""
+        try:
+            gift_users = self.repository.get_by_gift_id(gift_id)
+            if not gift_users:
+                raise GiftsUserRetrievalError("No gift users found for this gift ID")
+            return GiftUsersListResponse(gift_users=gift_users)
+        except Exception as e:
+            raise GiftsUserRetrievalError(
+                f"Erreur pourpour l'ID cadeau {gift_id}: {str(e)}"
+            ) from e
+
+    def create_gift_user(self, gift_user_data: GiftUserToCreate) -> str:
+        """Create a new gift user."""
+        try:
+            gift_user = gift_user_data
+            created_gift_user = self.repository.create(gift_user)
+            return created_gift_user
+        except Exception as e:
+            raise GiftsUserRetrievalError(
+                f"Erreur lors de la création de l'utilisateur de cadeau: {str(e)}"
             ) from e

@@ -1,5 +1,9 @@
 from fastapi import APIRouter, HTTPException
-from app.models.schemas.gift_user import GiftUsersListResponse, GiftUserResponse
+from app.models.schemas.gift_user import (
+    GiftUsersListResponse,
+    GiftUserResponse,
+    GiftUserToCreate,
+)
 from app.services.gift_user_service import GiftUserService
 
 router = APIRouter(prefix="/gift_users", tags=["gift_user"])
@@ -42,11 +46,26 @@ def get_gift_users_by_user_id(user_id: int):
         ) from e
 
 
-# get
-# - All gift_user
-# - gift_user_by_id
-# - gift_user_by_user_id
-# - gift_user_by_gift_id
+@router.get("/gift/{gift_id}", response_model=GiftUsersListResponse)
+def get_gift_users_by_gift_id(gift_id: int):
+    """Retrieve gift users by gift ID."""
+    try:
+        return gift_user_service.get_gift_users_by_gift_id(gift_id)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving gift users by gift ID: {e}"
+        ) from e
+
+
+@router.post("/add", response_model=str)
+def create_gift_user(gift_user_data: GiftUserToCreate):
+    """Create a new gift user."""
+    try:
+        return gift_user_service.create_gift_user(gift_user_data)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error creating gift user: {e}"
+        ) from e
 
 
 # Post

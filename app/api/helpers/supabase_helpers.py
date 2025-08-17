@@ -31,3 +31,13 @@ class SupabaseHelper(Generic[T]):
             .execute()
         )
         return response.data if response.data else []
+
+    def create(self, item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        response = self.client.table(self.table_name).insert(item).execute()  # type: ignore
+        return response.data[0] if response.data else None
+
+    def delete(self, id_to_delete: int) -> bool:
+        response = (
+            self.client.table(self.table_name).delete().eq("id", id_to_delete).execute()
+        )
+        return response.status_code == 200

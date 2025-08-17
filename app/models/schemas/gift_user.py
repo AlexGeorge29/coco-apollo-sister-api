@@ -55,38 +55,39 @@ class GiftUsersListResponse(BaseModel):
         },
     )
 
-    class GiftUserCreate(GiftUserBase):
-        id: int
-        model_config = ConfigDict(
-            json_schema_extra={
-                "example": {
-                    "gift_id": 1,
-                    "user_id": 1,
-                    "favorite": True,
-                    "reserved": False,
-                    "bouth": False,
-                }
-            },
-        )
 
-    class GiftUserUpdate(GiftUserBase):
-        id: int
-
-        model_config = ConfigDict(
-            json_schema_extra={
-                "example": {
-                    "id": 1,
-                    "gift_id": 1,
-                    "user_id": 1,
-                    "favorite": True,
-                    "reserved": False,
-                    "bouth": False,
-                }
-            },
-        )
+class GiftUserToCreate(GiftUserBase):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "gift_id": 1,
+                "user_id": 1,
+                "favorite": True,
+                "reserved": False,
+                "bouth": False,
+            }
+        },
+    )
 
 
-class GiftUserDelete(GiftUserBase):
+class GiftUserUpdate(GiftUserBase):
+    id: int
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "gift_id": 1,
+                "user_id": 1,
+                "favorite": True,
+                "reserved": False,
+                "bouth": False,
+            }
+        },
+    )
+
+
+class GiftUserToDelete(GiftUserBase):
     id: int
 
     model_config = ConfigDict(
