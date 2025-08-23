@@ -10,6 +10,7 @@ class GiftUserBase(BaseModel):
     favorite: bool = False
     reserved: bool = False
     bougth: bool = False
+    participation: int = 0
 
 
 class GiftUserResponse(TimestampMixin, GiftUserBase):
