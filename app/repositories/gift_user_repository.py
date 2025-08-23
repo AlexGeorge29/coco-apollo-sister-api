@@ -1,6 +1,10 @@
 from app.api.helpers.supabase_helpers import SupabaseHelper
 from app.database import supabase_client
-from app.models.schemas.gift_user import GiftUserResponse, GiftUserToCreate
+from app.models.schemas.gift_user import (
+    GiftUserResponse,
+    GiftUserToCreate,
+    GiftUserToUpdate,
+)
 from app.utilse.exceptions import GiftsUserRetrievalError
 
 
@@ -70,16 +74,25 @@ class GiftUserRepository:
         except Exception as e:
             raise GiftsUserRetrievalError(f"Error creating gift user: {str(e)}") from e
 
-    def delete(self, gift_user_id: int) -> str:
+    def delete(self, gift_user_id: int) -> None:
         """Delete a gift user by ID."""
         try:
-            response = SupabaseHelper(self.client, self.table).delete(gift_user_id)
-            if response is None:
-                raise GiftsUserRetrievalError(
-                    f"Failed to delete gift user with ID {gift_user_id}"
-                )
-            return "user deleted"
+            SupabaseHelper(self.client, self.table).delete(gift_user_id)
         except Exception as e:
             raise GiftsUserRetrievalError(
                 f"Error deleting gift user with ID {gift_user_id}: {str(e)}"
             ) from e
+
+    def update(self, gift_user_data: GiftUserToUpdate) -> GiftUserResponse:
+        """Update an existing gift user."""
+        try:
+            gift_user_id_to_update = gift_user_data.id
+            data = gift_user_data.model_dump(exclude_unset=True)
+            response = SupabaseHelper(self.client, self.table).update(
+                gift_user_id_to_update, data
+            )
+            if response is None:
+                raise GiftsUserRetrievalError("Failed to update gift user")
+            return GiftUserResponse(**response)
+        except Exception as e:
+            raise GiftsUserRetrievalError(f"Error updating gift user  {str(e)}") from e

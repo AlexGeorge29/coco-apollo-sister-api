@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from app.models.schemas.gift_user import (
+    GiftUserToUpdate,
     GiftUsersListResponse,
     GiftUserResponse,
     GiftUserToCreate,
@@ -68,11 +69,23 @@ def create_gift_user(gift_user_data: GiftUserToCreate):
         ) from e
 
 
-# Post
-# - Create gift_ser
+@router.delete("/delete/{gift_user_id}", status_code=204)
+def delete_gift_user(gift_user_id: int):
+    """Delete a gift user by ID."""
+    try:
+        gift_user_service.delete_gift_user(gift_user_id)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error deleting gift user: {e}"
+        ) from e
 
-# Delete
-# - delete_gift_user
 
-# Update
-# - Update gift_user
+@router.put("/update/{gift_user_id}", response_model=GiftUserResponse)
+def update_gift_user(gift_user_data: GiftUserToUpdate):
+    """Update a gift user by ID."""
+    try:
+        return gift_user_service.update_gift_user(gift_user_data)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error updating gift user: {e}"
+        ) from e

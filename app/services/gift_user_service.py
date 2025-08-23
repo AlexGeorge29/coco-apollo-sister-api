@@ -2,6 +2,7 @@ from app.models.schemas.gift_user import (
     GiftUserResponse,
     GiftUsersListResponse,
     GiftUserToCreate,
+    GiftUserToUpdate,
 )
 from app.repositories.gift_user_repository import GiftUserRepository
 from app.utilse.exceptions import GiftsUserRetrievalError
@@ -66,4 +67,23 @@ class GiftUserService:
         except Exception as e:
             raise GiftsUserRetrievalError(
                 f"Erreur lors de la création de l'utilisateur de cadeau: {str(e)}"
+            ) from e
+
+    def delete_gift_user(self, gift_user_id: int) -> None:
+        """Delete a gift user by ID."""
+        try:
+            self.repository.delete(gift_user_id)
+        except Exception as e:
+            raise GiftsUserRetrievalError(
+                f"Erreur lors de la suppression ID {gift_user_id}: {str(e)}"
+            ) from e
+
+    def update_gift_user(self, gift_user_data: GiftUserToUpdate) -> GiftUserResponse:
+        """Update an existing gift user."""
+        try:
+            updated_gift_user = self.repository.update(gift_user_data)
+            return updated_gift_user
+        except Exception as e:
+            raise GiftsUserRetrievalError(
+                f"Erreur lors de la mise à jour ID {gift_user_data.id}: {str(e)}"
             ) from e

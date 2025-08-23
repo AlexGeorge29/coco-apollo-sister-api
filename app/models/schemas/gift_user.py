@@ -70,7 +70,7 @@ class GiftUserToCreate(GiftUserBase):
     )
 
 
-class GiftUserUpdate(GiftUserBase):
+class GiftUserToUpdate(GiftUserBase):
     id: int
 
     model_config = ConfigDict(

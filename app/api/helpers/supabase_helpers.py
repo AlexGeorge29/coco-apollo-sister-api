@@ -36,6 +36,16 @@ class SupabaseHelper(Generic[T]):
         response = self.client.table(self.table_name).insert(item).execute()  # type: ignore
         return response.data[0] if response.data else None
 
-    def delete(self, id_to_delete: int) -> str:
+    def delete(self, id_to_delete: int) -> None:
         self.client.table(self.table_name).delete().eq("id", id_to_delete).execute()
-        return "deleted"
+
+    def update(
+        self, id_to_update: int, item: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        response = (
+            self.client.table(self.table_name)
+            .update(item)  # type: ignore
+            .eq("id", id_to_update)
+            .execute()
+        )
+        return response.data[0] if response.data else None
