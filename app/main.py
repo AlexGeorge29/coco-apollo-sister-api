@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer
 
 from .core.config.configs import configs
 from .api.routes import routers
@@ -12,6 +13,8 @@ app = FastAPI(
     version=configs.VERSION,
     openapi_url=f"{configs.API}/openapi.json",
 )
+
+security = HTTPBearer()
 
 app.add_middleware(
     CORSMiddleware,
