@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from app.models.schemas.base import TimestampMixin
+
 
 class GiftUserBase(BaseModel):
 
@@ -10,7 +12,7 @@ class GiftUserBase(BaseModel):
     bougth: bool = False
 
 
-class GiftUser(GiftUserBase):
+class GiftUserResponse(TimestampMixin, GiftUserBase):
     __tablename__ = "gifts_user"
 
     id: int
@@ -27,5 +29,76 @@ class GiftUser(GiftUserBase):
                     "bouth": False,
                 }
             },
+        },
+    )
+
+
+class GiftUsersListResponse(BaseModel):
+    gift_users: list[GiftUserResponse] = []
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "gift_users": [
+                    {
+                        "id": 1,
+                        "gift_id": 1,
+                        "user_id": 1,
+                        "favorite": True,
+                        "reserved": False,
+                        "bouth": False,
+                        "created_at": "2023-10-01T12:00:00Z",
+                        "updated_at": "2023-10-01T12:00:00Z",
+                    }
+                ]
+            }
+        },
+    )
+
+
+class GiftUserToCreate(GiftUserBase):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "gift_id": 1,
+                "user_id": 1,
+                "favorite": True,
+                "reserved": False,
+                "bouth": False,
+            }
+        },
+    )
+
+
+class GiftUserToUpdate(GiftUserBase):
+    id: int
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "gift_id": 1,
+                "user_id": 1,
+                "favorite": True,
+                "reserved": False,
+                "bouth": False,
+            }
+        },
+    )
+
+
+class GiftUserToDelete(GiftUserBase):
+    id: int
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "gift_id": 1,
+                "user_id": 1,
+                "favorite": True,
+                "reserved": False,
+                "bouth": False,
+            }
         },
     )
