@@ -22,3 +22,10 @@ class AuthResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+class CurrentUser(BaseModel):
+    id: str
+    email: EmailStr
+    full_name: Optional[str] = None
+    role: Optional[str] = "user"

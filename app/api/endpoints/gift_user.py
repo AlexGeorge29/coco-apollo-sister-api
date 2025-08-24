@@ -1,18 +1,22 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import HTTPBearer
+from app.dependencies import get_current_user
 from app.models.schemas.gift_user import (
     GiftUserToUpdate,
     GiftUsersListResponse,
     GiftUserResponse,
     GiftUserToCreate,
 )
+from app.models.schemas.user import UserLogin
 from app.services.gift_user_service import GiftUserService
 
 router = APIRouter(prefix="/gift_users", tags=["gift_user"])
 gift_user_service = GiftUserService()
+security = HTTPBearer()
 
 
 @router.get("/", response_model=GiftUsersListResponse)
-def get_gift_users():
+def get_gift_users(_current_user: UserLogin = Depends(get_current_user)):
     """Retrieve all gift users."""
     try:
         return gift_user_service.get_gift_users()
@@ -23,7 +27,9 @@ def get_gift_users():
 
 
 @router.get("/{gift_user_id}", response_model=GiftUserResponse)
-def get_gift_user(gift_user_id: int):
+def get_gift_user(
+    gift_user_id: int, _current_user: UserLogin = Depends(get_current_user)
+):
     """Retrieve a specific gift user by ID."""
     try:
         gift_user = gift_user_service.get_gift_user(gift_user_id)
@@ -37,7 +43,9 @@ def get_gift_user(gift_user_id: int):
 
 
 @router.get("/user/{user_id}", response_model=GiftUsersListResponse)
-def get_gift_users_by_user_id(user_id: int):
+def get_gift_users_by_user_id(
+    user_id: int, _current_user: UserLogin = Depends(get_current_user)
+):
     """Retrieve gift users by user ID."""
     try:
         return gift_user_service.get_gift_users_by_user_id(user_id)
@@ -48,7 +56,9 @@ def get_gift_users_by_user_id(user_id: int):
 
 
 @router.get("/gift/{gift_id}", response_model=GiftUsersListResponse)
-def get_gift_users_by_gift_id(gift_id: int):
+def get_gift_users_by_gift_id(
+    gift_id: int, _current_user: UserLogin = Depends(get_current_user)
+):
     """Retrieve gift users by gift ID."""
     try:
         return gift_user_service.get_gift_users_by_gift_id(gift_id)
@@ -59,7 +69,10 @@ def get_gift_users_by_gift_id(gift_id: int):
 
 
 @router.post("/add", response_model=str)
-def create_gift_user(gift_user_data: GiftUserToCreate):
+def create_gift_user(
+    gift_user_data: GiftUserToCreate,
+    _current_user: UserLogin = Depends(get_current_user),
+):
     """Create a new gift user."""
     try:
         return gift_user_service.create_gift_user(gift_user_data)
@@ -70,7 +83,9 @@ def create_gift_user(gift_user_data: GiftUserToCreate):
 
 
 @router.delete("/delete/{gift_user_id}", status_code=204)
-def delete_gift_user(gift_user_id: int):
+def delete_gift_user(
+    gift_user_id: int, _current_user: UserLogin = Depends(get_current_user)
+):
     """Delete a gift user by ID."""
     try:
         gift_user_service.delete_gift_user(gift_user_id)
@@ -81,7 +96,10 @@ def delete_gift_user(gift_user_id: int):
 
 
 @router.put("/update/{gift_user_id}", response_model=GiftUserResponse)
-def update_gift_user(gift_user_data: GiftUserToUpdate):
+def update_gift_user(
+    gift_user_data: GiftUserToUpdate,
+    _current_user: UserLogin = Depends(get_current_user),
+):
     """Update a gift user by ID."""
     try:
         return gift_user_service.update_gift_user(gift_user_data)
