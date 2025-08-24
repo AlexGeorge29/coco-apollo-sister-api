@@ -13,14 +13,18 @@ user_service = UserService()
 
 @router.post("/register", response_model=RegisterResponse)
 def register(user_data: UserRegister):
+    """new user registration endpoint"""
     try:
         return user_service.register_user(user_data)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e)) from e
+        raise HTTPException(
+            status_code=400, detail=f" registration failed {str(e)}"
+        ) from e
 
 
 @router.post("/login")
 def login(credentials: UserLogin):
+    """exisiting user login endpoint"""
     try:
         return user_service.get_auth(credentials)
     except Exception as e:

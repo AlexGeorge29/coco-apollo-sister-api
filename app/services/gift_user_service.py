@@ -19,7 +19,7 @@ class GiftUserService:
             return GiftUsersListResponse(gift_users=gift_users)
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la récupération des utilisateurs de cadeaux: {str(e)}"
+                f"Error retrieving gift users: {str(e)}"
             ) from e
 
     def get_gift_user(self, gift_user_id: int) -> GiftUserResponse:
@@ -31,7 +31,7 @@ class GiftUserService:
             return gift_user
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la récupération {gift_user_id}: {str(e)}"
+                f"Error retrieving gift_user id: {gift_user_id}: {str(e)}"
             ) from e
 
     def get_gift_users_by_user_id(self, user_id: int) -> GiftUsersListResponse:
@@ -43,7 +43,7 @@ class GiftUserService:
             return GiftUsersListResponse(gift_users=gift_users)
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur pour l'ID utilisateur {user_id}: {str(e)}"
+                f"Error retrieving gift_user for user id: {user_id}: {str(e)}"
             ) from e
 
     def get_gift_users_by_gift_id(self, gift_id: int) -> GiftUsersListResponse:
@@ -55,7 +55,7 @@ class GiftUserService:
             return GiftUsersListResponse(gift_users=gift_users)
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur pourpour l'ID cadeau {gift_id}: {str(e)}"
+                f"Error retrieval gift_user for gift id: {gift_id}: {str(e)}"
             ) from e
 
     def create_gift_user(self, gift_user_data: GiftUserToCreate) -> str:
@@ -66,7 +66,7 @@ class GiftUserService:
             return created_gift_user
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la création de l'utilisateur de cadeau: {str(e)}"
+                f"Error in he creation of gift_user: {str(e)}"
             ) from e
 
     def delete_gift_user(self, gift_user_id: int) -> None:
@@ -75,7 +75,7 @@ class GiftUserService:
             self.repository.delete(gift_user_id)
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la suppression ID {gift_user_id}: {str(e)}"
+                f"Error in the deletion of gift_user id: {gift_user_id}: {str(e)}"
             ) from e
 
     def update_gift_user(self, gift_user_data: GiftUserToUpdate) -> GiftUserResponse:
@@ -85,5 +85,5 @@ class GiftUserService:
             return updated_gift_user
         except Exception as e:
             raise GiftsUserRetrievalError(
-                f"Erreur lors de la mise à jour ID {gift_user_data.id}: {str(e)}"
+                f"Error in the update of gift_user id: {gift_user_data.id}: {str(e)}"
             ) from e

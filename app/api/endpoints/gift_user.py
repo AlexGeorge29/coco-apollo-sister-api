@@ -22,7 +22,7 @@ def get_gift_users(_current_user: UserLogin = Depends(get_current_user)):
         return gift_user_service.get_gift_users()
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error retrieving gift users: {e}"
+            status_code=500, detail=f"Error retrieving gift users: {str(e)}"
         ) from e
 
 
@@ -38,7 +38,7 @@ def get_gift_user(
         return gift_user
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error retrieving gift user: {e}"
+            status_code=500, detail=f"Error retrieving gift user by id: {str(e)}"
         ) from e
 
 
@@ -51,7 +51,7 @@ def get_gift_users_by_user_id(
         return gift_user_service.get_gift_users_by_user_id(user_id)
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error retrieving gift users by user ID: {e}"
+            status_code=500, detail=f"Error retrieving gift users by user ID: {str(e)}"
         ) from e
 
 
@@ -64,7 +64,7 @@ def get_gift_users_by_gift_id(
         return gift_user_service.get_gift_users_by_gift_id(gift_id)
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error retrieving gift users by gift ID: {e}"
+            status_code=500, detail=f"Error retrieving gift users by gift ID: {str(e)}"
         ) from e
 
 
@@ -78,7 +78,7 @@ def create_gift_user(
         return gift_user_service.create_gift_user(gift_user_data)
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error creating gift user: {e}"
+            status_code=500, detail=f"Error creating gift user: {str(e)}"
         ) from e
 
 
@@ -91,7 +91,7 @@ def delete_gift_user(
         gift_user_service.delete_gift_user(gift_user_id)
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error deleting gift user: {e}"
+            status_code=500, detail=f"Error deleting gift user: {str(e)}"
         ) from e
 
 
@@ -105,5 +105,5 @@ def update_gift_user(
         return gift_user_service.update_gift_user(gift_user_data)
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Error updating gift user: {e}"
+            status_code=500, detail=f"Error updating gift user: {str(e)}"
         ) from e

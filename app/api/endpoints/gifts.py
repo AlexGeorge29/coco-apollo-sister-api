@@ -16,7 +16,9 @@ def get_gifts(_current_user: UserLogin = Depends(get_current_user)):
     try:
         return gift_service.get_gifts()
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Invalid gift data: {e}") from e
+        raise HTTPException(
+            status_code=500, detail=f"Invalid gift data: {str(e)}"
+        ) from e
 
 
 @router.get("/{gift_id}", response_model=GiftResponse)
@@ -28,4 +30,6 @@ def get_gift(gift_id: int, _current_user: UserLogin = Depends(get_current_user))
             raise HTTPException(status_code=404, detail="Gift not found")
         return gift
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Invalid gift data: {e}") from e
+        raise HTTPException(
+            status_code=500, detail=f"Invalid gift data: {str(e)}"
+        ) from e

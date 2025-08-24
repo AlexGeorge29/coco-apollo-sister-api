@@ -6,6 +6,7 @@ from .endpoints.app_health_endpoint import router as health_router
 from .endpoints.auth import router as users_router
 
 routers = APIRouter()
+
 router_list: list[APIRouter] = [
     health_router,
     gifts_router,
