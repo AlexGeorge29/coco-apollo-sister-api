@@ -21,3 +21,7 @@ class GiftUserError(BaseAppException):
 
 class GiftsUserRetrievalError(GiftError):
     """Exception levée lors d'erreurs de récupération des gift_users"""
+
+
+class UserError(BaseAppException):
+    """Base exception for user-related errors."""

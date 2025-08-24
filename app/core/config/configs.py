@@ -25,17 +25,17 @@ class Configs(BaseModel):
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
 
     # Supabase
-    SUPABASE_URL: str = os.getenv("SUPABASE_URL")
-    SUPABASE_KEY: str = os.getenv("SUPABASE_KEY")
-    SUPABASE_SERVICE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    SUPABASE_URL: str | None = os.getenv("SUPABASE_URL")
+    SUPABASE_KEY: str | None = os.getenv("SUPABASE_KEY")
+    SUPABASE_SERVICE_KEY: str | None = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 
     # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL")
-    DB_HOST: str = os.getenv("DB_HOST")
-    DB_PORT: int = int(os.getenv("DB_PORT", 5432))
-    DB_USER: str = os.getenv("DB_USER")
-    DB_PASSWORD: str = os.getenv("DB_PASSWORD")
-    DB_NAME: str = os.getenv("DB_NAME")
+    DATABASE_URL: str | None = os.getenv("DATABASE_URL")
+    DB_HOST: str | None = os.getenv("DB_HOST")
+    DB_PORT: int | None = int(os.getenv("DB_PORT", "5432"))
+    DB_USER: str | None = os.getenv("DB_USER")
+    DB_PASSWORD: str | None = os.getenv("DB_PASSWORD")
+    DB_NAME: str | None = os.getenv("DB_NAME")
 
     class Config:
         env_file = ".env"

@@ -1,15 +1,16 @@
+from uuid import UUID
 from pydantic import BaseModel, ConfigDict
-
 from app.models.schemas.base import TimestampMixin
 
 
 class GiftUserBase(BaseModel):
 
     gift_id: int
-    user_id: int
+    user_id: UUID
     favorite: bool = False
     reserved: bool = False
     bougth: bool = False
+    participation: int = 0
 
 
 class GiftUserResponse(TimestampMixin, GiftUserBase):
@@ -23,7 +24,7 @@ class GiftUserResponse(TimestampMixin, GiftUserBase):
             "json_schema_extra": {
                 "example": {
                     "gift_id": 1,
-                    "user_id": 1,
+                    "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                     "favorite": True,
                     "reserved": False,
                     "bouth": False,
@@ -43,7 +44,7 @@ class GiftUsersListResponse(BaseModel):
                     {
                         "id": 1,
                         "gift_id": 1,
-                        "user_id": 1,
+                        "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                         "favorite": True,
                         "reserved": False,
                         "bouth": False,
@@ -61,7 +62,7 @@ class GiftUserToCreate(GiftUserBase):
         json_schema_extra={
             "example": {
                 "gift_id": 1,
-                "user_id": 1,
+                "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
                 "bouth": False,
@@ -78,7 +79,7 @@ class GiftUserToUpdate(GiftUserBase):
             "example": {
                 "id": 1,
                 "gift_id": 1,
-                "user_id": 1,
+                "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
                 "bouth": False,
@@ -95,7 +96,7 @@ class GiftUserToDelete(GiftUserBase):
             "example": {
                 "id": 1,
                 "gift_id": 1,
-                "user_id": 1,
+                "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
                 "bouth": False,

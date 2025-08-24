@@ -13,9 +13,7 @@ class GiftService:
             gifts = self.repository.get_all()
             return GiftsListResponse(gifts=gifts)
         except Exception as e:
-            raise GiftsRetrievalError(
-                f"Erreur lors de la récupération des items: {str(e)}"
-            ) from e
+            raise GiftsRetrievalError(f"Error in the gifts retrieval: {str(e)}") from e
 
     def get_gift(self, gift_id: int) -> GiftResponse:
         """Retrieve a specific gift by ID."""
@@ -26,5 +24,5 @@ class GiftService:
             return gift
         except Exception as e:
             raise GiftsRetrievalError(
-                f"Erreur lors de la récupération de l'item avec l'ID {gift_id}: {str(e)}"
+                f"Error in the retrieval of the gift ID: {gift_id}: {str(e)}"
             ) from e
