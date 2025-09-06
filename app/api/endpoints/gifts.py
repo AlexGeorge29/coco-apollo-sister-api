@@ -1,8 +1,6 @@
-from fastapi import APIRouter, HTTPException, Depends
-from app.dependencies import get_current_user
+from fastapi import APIRouter, HTTPException
 from app.models.schemas.gifts import GiftsListResponse, GiftResponse
 from app.services.gift_service import GiftService
-from app.models.schemas.user import UserLogin
 
 router = APIRouter(prefix="/gifts", tags=["gifts"])
 
@@ -11,7 +9,7 @@ gift_service = GiftService()
 
 
 @router.get("/", response_model=GiftsListResponse)
-def get_gifts(_current_user: UserLogin = Depends(get_current_user)):
+def get_gifts():
     """Retrieve all gifts."""
     try:
         return gift_service.get_gifts()
@@ -22,7 +20,9 @@ def get_gifts(_current_user: UserLogin = Depends(get_current_user)):
 
 
 @router.get("/{gift_id}", response_model=GiftResponse)
-def get_gift(gift_id: int, _current_user: UserLogin = Depends(get_current_user)):
+def get_gift(
+    gift_id: int,
+):
     """Retrieve a specific gift by ID."""
     try:
         gift = gift_service.get_gift(gift_id)
