@@ -9,7 +9,7 @@ class GiftUserBase(BaseModel):
     user_id: UUID
     favorite: bool = False
     reserved: bool = False
-    bougth: bool = False
+    bought: bool = False
     participation: int = 0
 
 
@@ -27,7 +27,7 @@ class GiftUserResponse(TimestampMixin, GiftUserBase):
                     "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                     "favorite": True,
                     "reserved": False,
-                    "bouth": False,
+                    "bought": False,
                 }
             },
         },
@@ -47,7 +47,7 @@ class GiftUsersListResponse(BaseModel):
                         "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                         "favorite": True,
                         "reserved": False,
-                        "bouth": False,
+                        "bought": False,
                         "created_at": "2023-10-01T12:00:00Z",
                         "updated_at": "2023-10-01T12:00:00Z",
                     }
@@ -65,7 +65,7 @@ class GiftUserToCreate(GiftUserBase):
                 "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
-                "bouth": False,
+                "bought": False,
             }
         },
     )
@@ -82,7 +82,7 @@ class GiftUserToUpdate(GiftUserBase):
                 "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
-                "bouth": False,
+                "bought": False,
             }
         },
     )
@@ -99,7 +99,7 @@ class GiftUserToDelete(GiftUserBase):
                 "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
                 "reserved": False,
-                "bouth": False,
+                "bought": False,
             }
         },
     )
