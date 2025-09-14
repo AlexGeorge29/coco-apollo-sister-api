@@ -71,7 +71,6 @@ def get_gift_users_by_gift_id(
 @router.post("/add", response_model=str)
 def create_gift_user(
     gift_user_data: GiftUserToCreate,
-    _current_user: UserLogin = Depends(get_current_user),
 ):
     """Create a new gift user."""
     try:

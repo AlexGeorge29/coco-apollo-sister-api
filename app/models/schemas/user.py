@@ -11,6 +11,7 @@ class UserRegister(BaseModel):
 class RegisterResponse(BaseModel):
     user_id: Optional[str] = None
     message: str
+    email: EmailStr = ""
 
 
 class UserLogin(BaseModel):

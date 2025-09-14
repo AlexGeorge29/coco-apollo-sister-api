@@ -1,4 +1,5 @@
 from uuid import UUID
+from typing import Optional
 from pydantic import BaseModel, ConfigDict
 from app.models.schemas.base import TimestampMixin
 
@@ -58,9 +59,11 @@ class GiftUsersListResponse(BaseModel):
 
 
 class GiftUserToCreate(GiftUserBase):
+    email: Optional[str] = ""
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
+                "email": "",
                 "gift_id": 1,
                 "user_id": "e55b47ca-b8aa-5b81-84b4-75d295e5589z",
                 "favorite": True,
