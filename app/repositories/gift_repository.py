@@ -1,6 +1,6 @@
 from app.api.helpers.supabase_helpers import SupabaseHelper
 from app.database import supabase_client
-from app.models.schemas.gifts import GiftResponse
+from app.models.schemas.gifts import GiftResponse, GiftToUpdate
 from app.utilse.exceptions import GiftsRetrievalError
 
 
@@ -27,4 +27,18 @@ class GiftRepository:
         except Exception as e:
             raise GiftsRetrievalError(
                 f"Error in the gift retrieval ID: {gift_id}: {str(e)}"
+            ) from e
+
+    def update(self, gift_id: int, gift_data: GiftToUpdate) -> GiftResponse | None:
+        """Update an existing gift."""
+        try:
+            response = SupabaseHelper(self.client, self.table).update(
+                gift_id, gift_data.model_dump(exclude_unset=True)
+            )
+            if not response:
+                return None
+            return GiftResponse(**response)
+        except Exception as e:
+            raise GiftsRetrievalError(
+                f"Error updating gift ID: {gift_id}: {str(e)}"
             ) from e

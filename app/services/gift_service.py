@@ -1,4 +1,4 @@
-from app.models.schemas.gifts import GiftResponse, GiftsListResponse
+from app.models.schemas.gifts import GiftResponse, GiftsListResponse, GiftToUpdate
 from app.repositories.gift_repository import GiftRepository
 from app.utilse.exceptions import GiftsRetrievalError
 
@@ -25,4 +25,16 @@ class GiftService:
         except Exception as e:
             raise GiftsRetrievalError(
                 f"Error in the retrieval of the gift ID: {gift_id}: {str(e)}"
+            ) from e
+
+    def update_gift(self, gift_id: int, gift_data: GiftToUpdate) -> GiftResponse:
+        """Update an existing gift."""
+        try:
+            updated_gift = self.repository.update(gift_id, gift_data)
+            if not updated_gift:
+                raise GiftsRetrievalError("Gift not found for update")
+            return updated_gift
+        except Exception as e:
+            raise GiftsRetrievalError(
+                f"Error updating gift ID: {gift_id}: {str(e)}"
             ) from e

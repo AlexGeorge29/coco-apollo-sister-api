@@ -93,3 +93,15 @@ def update_gift_user(
         raise HTTPException(
             status_code=500, detail=f"Error updating gift user: {str(e)}"
         ) from e
+
+
+@router.get("/user/{user_email}", response_model=GiftUsersListResponse)
+def get_gift_users_by_user_email(user_email: str):
+    """Retrieve gift users by user email."""
+    try:
+        return gift_user_service.get_gift_users_by_user_email(user_email)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving gift users by user email: {str(e)}",
+        ) from e

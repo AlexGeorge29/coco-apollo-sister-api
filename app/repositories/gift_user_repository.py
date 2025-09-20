@@ -70,7 +70,7 @@ class GiftUserRepository:
             response = SupabaseHelper(self.client, self.table).create(data)
             if response is None:
                 raise GiftsUserRetrievalError("Failed to create gift user")
-            return "user created"
+            return "Gift user created"
         except Exception as e:
             raise GiftsUserRetrievalError(f"Error creating gift user: {str(e)}") from e
 
@@ -96,3 +96,19 @@ class GiftUserRepository:
             return GiftUserResponse(**response)
         except Exception as e:
             raise GiftsUserRetrievalError(f"Error updating gift user  {str(e)}") from e
+
+    def get_gift_user_by_user_email(
+        self, user_email: str
+    ) -> list[GiftUserResponse] | None:
+        """Retrieve gift users by user email."""
+        try:
+            response = SupabaseHelper(self.client, self.table).get_by_field(
+                "user_email", user_email
+            )
+            if not response:
+                return None
+            return [GiftUserResponse(**item) for item in response]
+        except Exception as e:
+            raise GiftsUserRetrievalError(
+                f"Error retrieving gift users for user email {user_email}: {str(e)}"
+            ) from e
