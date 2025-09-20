@@ -25,6 +25,7 @@ class UserRepository:
             return RegisterResponse(
                 user_id=response.user.id if response.user else None,
                 message="Registration successful",
+                email=user_data.email,
             )
         except Exception as e:
             raise UserError(f"Error creating user: {str(e)}") from e
