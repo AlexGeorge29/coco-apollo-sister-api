@@ -89,7 +89,6 @@ class GiftUserToCreate(GiftUserBase):
 
 class GiftUserToUpdate(GiftUserBase):
     id: int
-
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
