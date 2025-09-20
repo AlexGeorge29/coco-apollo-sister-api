@@ -34,18 +34,6 @@ class GiftUserService:
                 f"Error retrieving gift_user id: {gift_user_id}: {str(e)}"
             ) from e
 
-    def get_gift_users_by_user_id(self, user_id: int) -> GiftUsersListResponse:
-        """Retrieve gift users by user ID."""
-        try:
-            gift_users = self.repository.get_by_user_id(user_id)
-            if not gift_users:
-                raise GiftsUserRetrievalError("No gift users found for this user ID")
-            return GiftUsersListResponse(gift_users=gift_users)
-        except Exception as e:
-            raise GiftsUserRetrievalError(
-                f"Error retrieving gift_user for user id: {user_id}: {str(e)}"
-            ) from e
-
     def get_gift_users_by_gift_id(self, gift_id: int) -> GiftUsersListResponse:
         """Retrieve gift users by gift ID."""
         try:

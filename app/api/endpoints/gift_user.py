@@ -42,19 +42,6 @@ def get_gift_user(
         ) from e
 
 
-@router.get("/user/{user_id}", response_model=GiftUsersListResponse)
-def get_gift_users_by_user_id(
-    user_id: int, _current_user: UserLogin = Depends(get_current_user)
-):
-    """Retrieve gift users by user ID."""
-    try:
-        return gift_user_service.get_gift_users_by_user_id(user_id)
-    except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Error retrieving gift users by user ID: {str(e)}"
-        ) from e
-
-
 @router.get("/gift/{gift_id}", response_model=GiftUsersListResponse)
 def get_gift_users_by_gift_id(
     gift_id: int, _current_user: UserLogin = Depends(get_current_user)
