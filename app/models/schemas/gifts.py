@@ -16,6 +16,7 @@ class GiftBase(BaseModel):
     greatings_id: int = 0
     slug: str = ""
     remaining_amount: int = 0
+    store: str = ""
 
     @field_validator("price", "quantity", mode="before")
     @classmethod
@@ -50,6 +51,7 @@ class GiftResponse(TimestampMixin, GiftBase):
                 "greatings_id": 1,
                 "sluf": "gift-name",
                 "remaining_amount": 100,
+                "store": "Example Store",
                 "created_at": "2023-10-01T12:00:00Z",
                 "updated_at": "2023-10-01T12:00:00Z",
             }
@@ -74,7 +76,7 @@ class GiftsListResponse(BaseModel):
                         "quantity": 1,
                         "category_id": 1,
                         "greatings_id": 1,
-                        "user_id": 1,
+                        "store": "Example Store",
                         "created_at": "2023-10-01T12:00:00Z",
                         "updated_at": "2023-10-01T12:00:00Z",
                     }
@@ -97,6 +99,7 @@ class GiftToUpdate(TimestampMixin, GiftBase):
                 "img_rul": "https://example.com/updated-image.jpg",
                 "quantity": 2,
                 "category_id": 2,
+                "store": "Updated Store",
                 "greatings_id": 2,
             }
         },
